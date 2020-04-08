@@ -1,17 +1,16 @@
 import React from 'react';
 import {Layout} from "antd";
-const {Sider, Content } = Layout;
-import {Header} from "../../modules";
+const {Sider, Content, Header } = Layout;
 import './Home.less'
 const Home = () => {
     return (
-        <section className="home">
-            <Layout className="home-layout">
-                <Sider className="home-sider" width="400px">
+        <section className="home-page">
+            <Layout className="home-page__main-layout">
+                <Sider className="home-page__sider">
                 </Sider>
-                <Layout>
-                    <Header style={{width: "auto"}}/>
-                    <Content className="home-content">
+                <Layout className="home-page__right-layout">
+                    <Header className="home-page__header"/>
+                    <Content className="home-page__content">
                         Content
                     </Content>
                 </Layout>
