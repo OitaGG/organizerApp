@@ -7,7 +7,6 @@ import {Header} from "../../modules";
 const Start = () => {
     return (
         <section className="start">
-            <Header/>
             <Card
                 img="../../../public/img/card-1.svg"
                 title="Работа с командой"
