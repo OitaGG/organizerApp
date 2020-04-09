@@ -3,7 +3,6 @@ import {Card} from "../../components";
 import ButtonLink from "../../components/Link";
 import { Carousel } from 'antd';
 import "./Start.less"
-import {Header} from "../../modules";
 const Start = () => {
     return (
         <section className="start">
