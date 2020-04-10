@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import {connect} from "react-redux";
-import {siderShowAction} from "../../../store/Header/actions";
+import {siderShowAction} from "../../../store/homeHeader/actions";
 import Header from "../components/HomeHeader";
 import {Component} from "react";
 

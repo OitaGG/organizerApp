@@ -1,16 +1,14 @@
 import React from 'react';
 import {Layout} from "antd";
-const {Sider, Content} = Layout;
+const {Content} = Layout;
+import {HomeSider} from "../../modules";
 import './Home.less'
 import {HomeHeader} from "../../modules";
 const Home = () => {
     return (
         <section className="home-page">
             <Layout className="home-page__main-layout">
-                <Sider
-                    className="home-page__sider"
-                    width="400px">
-                </Sider>
+                <HomeSider/>
                 <Layout className="home-page__right-layout">
                     <HomeHeader/>
                     <Content className="home-page__content">
