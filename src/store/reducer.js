@@ -1,6 +1,6 @@
 // @flow
 import {combineReducers, createStore} from "redux";
-import {headerReducer} from "./header/reducer";
+import {headerReducer} from "./Header/reducer";
 import {appReducer} from "./app/reducer";
 
 const rootState = combineReducers({

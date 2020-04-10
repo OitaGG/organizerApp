@@ -3,11 +3,9 @@ import {Card} from "../../components";
 import ButtonLink from "../../components/Link";
 import { Carousel } from 'antd';
 import "./Start.less"
-import {Header} from "../../modules";
 const Start = () => {
     return (
         <section className="start">
-            <Header/>
             <Card
                 img="../../../public/img/card-1.svg"
                 title="Работа с командой"
