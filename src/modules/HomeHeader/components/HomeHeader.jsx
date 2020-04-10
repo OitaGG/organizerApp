@@ -4,15 +4,18 @@ import {SettingOutlined, LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined} f
 import {NavLink} from "react-router-dom";
 import './Header.less'
 
-const Header = ({user = {name: "Alex"}, showPopup = true}) => {
-    const popupButton = showPopup ?
-        <MenuFoldOutlined classname="header__side-bar-button-svg"/>
-        : <MenuUnfoldOutlined classname="header__side-bar-button-svg"/>;
+const Header = ({showSider, showSiderAct, user = {name: "Alex"}}) => {
+    const popupButton = showSider ?
+        <MenuFoldOutlined className="header__side-bar-button-svg"/>
+        : <MenuUnfoldOutlined className="header__side-bar-button-svg"/>;
     return (
         <div className="header">
-            <div className="header__side-bar-button header_button">
+            <div
+                className="header__side-bar-button header_button"
+                onClick={showSiderAct}>
                 {popupButton}
             </div>
+            <div className="header_placeholder"></div>
             <div className="header__username">
                 <span className="header__username-text">{user.name}</span>
             </div>
