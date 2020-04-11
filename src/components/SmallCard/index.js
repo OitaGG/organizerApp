@@ -3,17 +3,20 @@ import './SmallCard.less'
 import {CaretDownOutlined, EditOutlined} from "@ant-design/icons";
 import {useState} from "react";
 import classnames from 'classnames'
-const SmallCard = ({title, children}) => {
+const SmallCard = ({drag, isDragging, title, children}) => {
     const [isOpen, toggleIsOpen] = useState(false);
     return(
-        <div className={classnames("small-card", isOpen ? 'open' : '')}>
+        <div className={classnames("small-card", isOpen ? 'open' : '')}
+             style={isDragging ? {opacity: "0.5"} : null}
+             ref={drag}>
             <div className="small-card__header">
                 <div className="small-card__title">
                     <span>{title}</span>
                 </div>
                 <div className="small-card__btn">
                     <EditOutlined style={{fontSize: "20px"}}/>
-                    <CaretDownOutlined style={{fontSize:"20px"}} onClick={() => toggleIsOpen(!isOpen)}/>
+                    <CaretDownOutlined style={{fontSize:"20px"}}
+                                       onClick={() => toggleIsOpen(!isOpen)}/>
                 </div>
             </div>
             <div className={classnames("small-card__content", isOpen ? '' : 'hidden')}>

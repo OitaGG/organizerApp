@@ -2,9 +2,12 @@ import React from 'react';
 import {Layout, Input} from "antd";
 import './HomeSider.less';
 import classNames from 'classnames'
-import {Button} from "../../../components";
-import {SmallCard} from "../../../containers";
+import {Button, CardList} from "../../../components";
 import {PlusCircleTwoTone} from "@ant-design/icons";
+
+import { DndProvider } from 'react-dnd'
+import Backend from 'react-dnd-html5-backend'
+
 const HomeSider = ({showSider = true, }) => {
     const items = [
         {
@@ -21,10 +24,11 @@ const HomeSider = ({showSider = true, }) => {
             id: 3,
             title: "Опять что-то другое",
             description: "Описание еще важнее"
-        },
+        }
     ];
     const {Sider} = Layout;
     return(
+        <DndProvider backend={Backend}>
         <Sider
             className={classNames('sider', showSider ? '' : 'hidden')}
             width="400px">
@@ -43,12 +47,9 @@ const HomeSider = ({showSider = true, }) => {
                 <span className="sider__add-btn"><PlusCircleTwoTone twoToneColor="#00b894"/></span>
                 <span className="sider__add-new-item-text">Добавить шаблон</span>
             </div>
-            <div className="sider__list-items">
-                {items.map((item) => {
-                    return <SmallCard title={item.title} key={item.id}>{item.description}</SmallCard>
-                })}
-            </div>
+            <CardList className="sider__list-items" items={items}/>
         </Sider>
+        </DndProvider>
     )
 };
 
