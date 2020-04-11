@@ -8,7 +8,7 @@ const Home = () => {
     return (
         <section className="home-page">
             <Layout className="home-page__main-layout">
-                <HomeSider/>
+                <HomeSider classname="home-page__sider"/>
                 <Layout className="home-page__right-layout">
                     <HomeHeader/>
                     <Content className="home-page__content">
