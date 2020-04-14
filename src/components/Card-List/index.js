@@ -1,20 +1,25 @@
 import * as React from "react";
 import {SmallCard} from "../../containers";
-import { DropTarget } from 'react-dnd'
 import './Card-List.less';
 
-const collect = (connect, monitor) => ({
-    connectDropTarget: connect.dropTarget(),
-    hovered: monitor.isOver(),
-    item: monitor.getItem()
-});
-
-const CardList = ({items, connectDropTarget, hovered, item}) => {
+const CardList = ({cards, moveCard}) => {
+    const renderCard = (card, index) => {
+        return (
+            <SmallCard
+                key={card.id}
+                index={index}
+                id={card.id}
+                title={card.title}
+                text={card.text}
+                moveCard={moveCard}
+            >{card.description}</SmallCard>
+        )
+    };
     return (
         <div className="card-list">
-            {items.map(el => <SmallCard key={el.id} title={el.title}>{el.description}</SmallCard>)};
+            {cards.map((card, i) => renderCard(card, i))};
         </div>
     )
 };
 
-export default DropTarget('CARD', {}, collect)(CardList)
+export default CardList;
