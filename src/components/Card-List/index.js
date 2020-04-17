@@ -4,7 +4,7 @@ import {SmallCard} from "../../containers";
 import './Card-List.less';
 import EmptyHolder from "../EmptyHolder";
 
-const CardList = ({cards, moveCard}) => {
+const CardList = ({cards, moveCard, handleDrop}) => {
     const renderCard = (card, index) => {
         return (
             <SmallCard
@@ -12,15 +12,15 @@ const CardList = ({cards, moveCard}) => {
                 index={index}
                 id={card.id}
                 title={card.title}
-                text={card.text}
                 moveCard={moveCard}
+                handleDrop={handleDrop}
             >{card.description}</SmallCard>
         )
     };
     const EmptyList = (<EmptyHolder title="К сожалению, ничего не найдено" btnText="Создать шаблон"/>)
     return (
         <div className="card-list">
-            {cards.length ? cards.map((card, i) => renderCard(card, i)) : EmptyList};
+            {cards.length ? cards.map((card, i) => renderCard(card, i)) : EmptyList}
         </div>
     )
 };

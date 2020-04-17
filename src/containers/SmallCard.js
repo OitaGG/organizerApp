@@ -8,7 +8,7 @@ export const ItemTypes = {
 };
 
 const SmallCard = React.forwardRef(
-    ({ title, children, isDragging, connectDragSource, connectDropTarget }, ref) => {
+    ({ title, children, isDragging, connectDragSource, connectDropTarget, id, handleDrop}, ref) => {
         const elementRef = useRef(null)
         connectDragSource(elementRef)
         connectDropTarget(elementRef)
@@ -18,7 +18,7 @@ const SmallCard = React.forwardRef(
         }))
         return (
             <div ref={elementRef}>
-                <BaseSmallCard opacity={opacity} title={title}>{children}</BaseSmallCard>
+                <BaseSmallCard opacity={opacity} title={title} handleDrop={handleDrop} id={id}>{children}</BaseSmallCard>
             </div>
         )
     },
@@ -65,7 +65,7 @@ export default DropTarget(
             beginDrag: (props) => ({
                 id: props.id,
                 index: props.index,
-            }),
+            })
         },
         (connect, monitor) => ({
             connectDragSource: connect.dragSource(),

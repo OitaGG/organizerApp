@@ -35,7 +35,6 @@ export default class HomeSider extends React.Component {
         }
     }
     render() {
-        console.log(this.state.input)
         const {showSider, list} = this.state;
         return(
             <DndProvider backend={Backend}>
@@ -64,7 +63,7 @@ export default class HomeSider extends React.Component {
                     <div className="sider__input">
                         <Input.Search
                             className="sider__search dark"
-                            placeholder="Search notes"
+                            placeholder="Поиск"
                             onChange={event => this.onChangeInputValue(event.target.value)}
                         />
                     </div>

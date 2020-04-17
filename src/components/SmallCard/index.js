@@ -1,6 +1,6 @@
 import * as React from "react";
 import './SmallCard.less'
-import {CaretDownOutlined, EditOutlined} from "@ant-design/icons";
+import {CaretDownOutlined, EditOutlined, DeleteOutlined} from "@ant-design/icons";
 import classnames from 'classnames'
 class SmallCard extends React.Component {
     constructor(props){
@@ -17,10 +17,16 @@ class SmallCard extends React.Component {
     
     render() {
         const {isOpen} = this.state;
-        const {title, children, opacity} = this.props;
+        const {title, children, opacity, handleDrop, id} = this.props;
         return(
             <div className={classnames("small-card", isOpen ? 'open' : '')} style={{opacity: opacity}}>
                 <div className="small-card__header">
+                    <div className="small-card__btn">
+                        <DeleteOutlined 
+                            style={{fontSize: "20px"}}
+                            onClick={() => handleDrop(id)}
+                        />
+                    </div>
                     <div className="small-card__title">
                         <span>{title}</span>
                     </div>
