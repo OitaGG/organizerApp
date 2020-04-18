@@ -23,101 +23,6 @@ const items = [
         title: "Просто заголовок",
         description: "Тупо описание"
     },
-    {
-        id: 5,
-        title: "Что-то другое",
-        description: "И тут важное описание"
-    },
-    {
-        id: 6,
-        title: "Опять что-то другое",
-        description: "Описание еще важнее"
-    },
-    {
-        id: 7,
-        title: "Просто заголовок",
-        description: "Тупо описание"
-    },
-    {
-        id: 8,
-        title: "Что-то другое",
-        description: "И тут важное описание"
-    },
-    {
-        id: 9,
-        title: "Что-то другое",
-        description: "И тут важное описание"
-    },
-    {
-        id: 10,
-        title: "Опять что-то другое",
-        description: "Описание еще важнее"
-    },
-    {
-        id: 11,
-        title: "Просто заголовок",
-        description: "Тупо описание"
-    },
-    {
-        id: 12,
-        title: "Что-то другое",
-        description: "И тут важное описание"
-    },
-    {
-        id: 13,
-        title: "Что-то другое",
-        description: "И тут важное описание"
-    },
-    {
-        id: 14,
-        title: "Опять что-то другое",
-        description: "Описание еще важнее"
-    },
-    {
-        id: 15,
-        title: "Просто заголовок",
-        description: "Тупо описание"
-    },
-    {
-        id: 16,
-        title: "Что-то другое",
-        description: "И тут важное описание"
-    },
-    {
-        id: 17,
-        title: "Что-то другое",
-        description: "И тут важное описание"
-    },
-    {
-        id: 18,
-        title: "Что-то другое",
-        description: "И тут важное описание"
-    },
-    {
-        id: 19,
-        title: "Что-то другое",
-        description: "И тут важное описание"
-    },
-    {
-        id: 20,
-        title: "Что-то другое",
-        description: "И тут важное описание"
-    },
-    {
-        id: 21,
-        title: "Что-то другое",
-        description: "И тут важное описание"
-    },
-    {
-        id: 22,
-        title: "Что-то другое",
-        description: "И тут важное описание"
-    },
-    {
-        id: 23,
-        title: "Что-то другое",
-        description: "И тут важное описание"
-    },
 ];
 
 const weeksItems = [
@@ -134,42 +39,50 @@ const weeksItems = [
 ];
 
 // функции для отслеживания обновления пропсов
-function usePrevious(value) {
+function usePrevious(value: any): any {
     const ref = useRef();
     useEffect(() => {
         ref.current = value;
     });
     return ref.current;
 }
-const hasPropsChanged = (val) => {
+
+const hasPropsChanged = (val: any): boolean => {
     const prev = usePrevious(val);
     return prev !== val
+};
+
+type Props = {
+    listname: string,
+    input: string
 }
 
-const CardList = ({listName, input}) => {
-    const hasListChanged = hasPropsChanged(listName)
+
+const CardList = (props: Props) => {
+    const {listName, input} = props;
+    const hasListChanged = hasPropsChanged(listName);
     const hasInputChanged = hasPropsChanged(input);
     const [daysCards, setCards] = useState([]);
-    const [weeksCards, setWeeksCards] = useState([])
+    const [weeksCards, setWeeksCards] = useState([]);
     const [filteredCards, setFilteredCards] = useState([]);
     useEffect(() => {
         // обращение к api
-        setWeeksCards(weeksItems)
+        setWeeksCards(weeksItems);
         setCards(items);
-    },[])
+    },[]);
     useEffect(() => {
         setFilteredCards(weeksCards);
     },[weeksCards]);
     useEffect(() => {
         setFilteredCards(daysCards);
     },[daysCards]);
-    const handleDrop = (id) => {
+    const handleDrop = (id: number): void => {
         if(listName === 'days'){
             setCards(prev => prev.filter(el => el.id !== id))
         } else if(listName === 'weeks'){
             setWeeksCards(prev => prev.filter(el => el.id !== id))
         }
-    }
+    };
     useEffect(() => {
         if(hasListChanged){
             setFilteredCards(listName === 'days' ? daysCards : weeksCards)
@@ -182,7 +95,7 @@ const CardList = ({listName, input}) => {
             }
         }
     });
-    const moveCard = (dragIndex, hoverIndex) => {
+    const moveCard = (dragIndex: number, hoverIndex: number): void => {
         const dragCard = filteredCards[dragIndex]
         setFilteredCards(
             update(filteredCards, {
@@ -192,7 +105,7 @@ const CardList = ({listName, input}) => {
                 ],
             }),
         )
-    }
+    };
     return(
         <div>
             <BaseCardList cards={filteredCards} moveCard={moveCard} handleDrop={(id) => handleDrop(id)}/>

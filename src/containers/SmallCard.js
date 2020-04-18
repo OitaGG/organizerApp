@@ -1,5 +1,6 @@
 //@flow
-import React, { useImperativeHandle, useRef } from 'react'
+import * as React from "react";
+import { useImperativeHandle, useRef } from 'react'
 import { DragSource, DropTarget } from 'react-dnd'
 import {SmallCard as BaseSmallCard} from "../components";
 
@@ -7,15 +8,25 @@ export const ItemTypes = {
     CARD: 'CARD',
 };
 
+type Props = {
+    title: string,
+    children: React.Node,
+    isDragging: boolean,
+    connectDragSource: void,
+    connectDropTarget: void,
+    id: number,
+    handleDrop: void
+}
+
 const SmallCard = React.forwardRef(
     ({ title, children, isDragging, connectDragSource, connectDropTarget, id, handleDrop}, ref) => {
-        const elementRef = useRef(null)
-        connectDragSource(elementRef)
-        connectDropTarget(elementRef)
-        const opacity = isDragging ? 0 : 1
+        const elementRef = useRef(null);
+        connectDragSource(elementRef);
+        connectDropTarget(elementRef);
+        const opacity = isDragging ? 0 : 1;
         useImperativeHandle(ref, () => ({
             getNode: () => elementRef.current,
-        }))
+        }));
         return (
             <div ref={elementRef}>
                 <BaseSmallCard opacity={opacity} title={title} handleDrop={handleDrop} id={id}>{children}</BaseSmallCard>
@@ -31,27 +42,27 @@ export default DropTarget(
             if (!component) {
                 return null
             }
-            const node = component.getNode()
+            const node = component.getNode();
             if (!node) {
                 return null
             }
-            const dragIndex = monitor.getItem().index
-            const hoverIndex = props.index
+            const dragIndex = monitor.getItem().index;
+            const hoverIndex = props.index;
             if (dragIndex === hoverIndex) {
                 return
             }
-            const hoverBoundingRect = node.getBoundingClientRect()
+            const hoverBoundingRect = node.getBoundingClientRect();
             const hoverMiddleY =
-                (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-            const clientOffset = monitor.getClientOffset()
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top
+                (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+            const clientOffset = monitor.getClientOffset();
+            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
                 return
             }
             if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
                 return
             }
-            props.moveCard(dragIndex, hoverIndex)
+            props.moveCard(dragIndex, hoverIndex);
             monitor.getItem().index = hoverIndex
         },
     },
@@ -73,4 +84,3 @@ export default DropTarget(
         }),
     )(SmallCard),
 )  
-// export default SmallCard;

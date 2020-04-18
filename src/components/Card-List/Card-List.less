@@ -3,8 +3,15 @@
   overflow-y: scroll;
   overflow-x: hidden;
   max-height: 700px;
-  padding: 20px;
-  &::-webkit-scrollbar { /* chrome based */
-    width: 0px;  /* ширина scrollbar'a */
+  padding: 5px 20px;
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    background-color: #2d3436;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: #dfe6e9;
   }
 }

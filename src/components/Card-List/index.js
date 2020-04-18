@@ -1,10 +1,16 @@
 // @flow
 import * as React from "react";
 import {SmallCard} from "../../containers";
-import './Card-List.less';
 import EmptyHolder from "../EmptyHolder";
+import './Card-List.less';
 
-const CardList = ({cards, moveCard, handleDrop}) => {
+type Props = {
+    cards: any,
+    moveCard: void,
+    handleDrop: void
+}
+const CardList = (props : Props) => {
+    const {cards, moveCard, handleDrop} = props;
     const renderCard = (card, index) => {
         return (
             <SmallCard

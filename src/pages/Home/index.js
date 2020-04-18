@@ -1,9 +1,9 @@
 import React from 'react';
 import {Layout} from "antd";
 const {Content} = Layout;
-import {HomeSider} from "../../modules";
+import {HomeHeader, HomeSider} from "../../modules";
 import './Home.less'
-import {HomeHeader} from "../../modules";
+
 const Home = () => {
     return (
         <section className="home-page">
@@ -12,7 +12,6 @@ const Home = () => {
                 <Layout className="home-page__right-layout">
                     <HomeHeader/>
                     <Content className="home-page__content">
-                        Content
                     </Content>
                 </Layout>
             </Layout>

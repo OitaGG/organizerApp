@@ -1,0 +1,10 @@
+.block {
+  padding: 65px;
+  border-radius: 5px;
+  -webkit-box-shadow: 4px 7px 16px -14px rgba(52, 73, 94, 0.33);
+  -moz-box-shadow: 4px 7px 16px -14px rgba(52, 73, 94, 0.33);
+  box-shadow: 4px 7px 16px -14px rgba(52, 73, 94, 0.33);
+}
+.home-page__sider {
+  background: #636e72;
+}

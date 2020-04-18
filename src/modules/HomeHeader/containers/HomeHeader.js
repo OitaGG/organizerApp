@@ -5,12 +5,12 @@ import {siderShowAction} from "../../../store/homeHeader/actions";
 import Header from "../components/HomeHeader";
 import {Component} from "react";
 
-interface HeaderProps {
+type Props = {
     showSider: void,
     user: any
 }
 
-class HeaderContainer extends Component<HeaderProps>{
+class HeaderContainer extends Component<Props>{
     render(){
         return(
             <Header
@@ -22,7 +22,7 @@ class HeaderContainer extends Component<HeaderProps>{
     }
 }
 
-const mapStateToProps = (store: any) => ({
+const mapStateToProps = (store: any): any => ({
     showSider: store.header.showSider
 });
 
