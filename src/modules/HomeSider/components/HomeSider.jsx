@@ -21,7 +21,7 @@ type Props = {
 }
 
 const HomeSider = (props: Props) => {
-    const {input, list, showSider, changeListContainer, onChangeInputValue, changeVisibleStatus, visible, openPopup} = props;
+    const {input, list, showSider, changeTemplatesListAction, onChangeInputValue, changeVisibleStatus, visible, openPopup} = props;
     const {Sider} = Layout;
     return(
         <DndProvider backend={Backend}>
@@ -34,7 +34,7 @@ const HomeSider = (props: Props) => {
                         disabled={list === 'days'}
                         type="dashed"
                         style={{width: "50%"}}
-                        onClick={() => changeListContainer('days')}>
+                        onClick={() => changeTemplatesListAction('days')}>
                         Шаблоны дел
                     </Button>
                     <Button
@@ -42,7 +42,7 @@ const HomeSider = (props: Props) => {
                         disabled={list === 'weeks'}
                         type="dashed"
                         style={{width: "50%"}}
-                        onClick={() => changeListContainer('weeks')}>
+                        onClick={() => changeTemplatesListAction('weeks')}>
                         Шаблоны недель
                     </Button>
                 </div>
@@ -64,7 +64,7 @@ const HomeSider = (props: Props) => {
                     </span>
                     <span className="sider__add-new-item-text">Добавить шаблон</span>
                 </div>
-                <CardList className="sider__list-items" listName={list} input={input}/>
+                <CardList className="sider__list-items"/>
             </Sider>
         </DndProvider>
     )

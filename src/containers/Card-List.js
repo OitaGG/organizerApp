@@ -1,12 +1,14 @@
 import * as React from 'react';
 import {useState, useEffect, useRef} from 'react'
+import {connect} from 'react-redux';
 import {CardList as BaseCardList} from "../components";
+import {changeInputAction, changeTemplatesListAction} from "../store/homeSider/actions";
 import update from 'immutability-helper';
 const items = [
     {
         id: 1,
         title: "Просто заголовок",
-        description: "Тупо описание"
+        description: "Тупо описание очень длинное, где много текста и прочего, чтобы вышло за рамки блаблабла и еще поговорим, мы же не спешим никуда"
     },
     {
         id: 2,
@@ -20,7 +22,7 @@ const items = [
     },
     {
         id: 4,
-        title: "Просто заголовок",
+        title: "А тут будет длинный заголовок, который ну пиздец как заебешься смотреть",
         description: "Тупо описание"
     },
 ];
@@ -53,14 +55,14 @@ const hasPropsChanged = (val: any): boolean => {
 };
 
 type Props = {
-    listname: string,
+    list: string,
     input: string
 }
 
 
 const CardList = (props: Props) => {
-    const {listName, input} = props;
-    const hasListChanged = hasPropsChanged(listName);
+    const {list, input} = props;
+    const hasListChanged = hasPropsChanged(list);
     const hasInputChanged = hasPropsChanged(input);
     const [daysCards, setCards] = useState([]);
     const [weeksCards, setWeeksCards] = useState([]);
@@ -76,27 +78,27 @@ const CardList = (props: Props) => {
     useEffect(() => {
         setFilteredCards(daysCards);
     },[daysCards]);
-    const handleDrop = (id: number): void => {
-        if(listName === 'days'){
-            setCards(prev => prev.filter(el => el.id !== id))
-        } else if(listName === 'weeks'){
-            setWeeksCards(prev => prev.filter(el => el.id !== id))
-        }
-    };
     useEffect(() => {
         if(hasListChanged){
-            setFilteredCards(listName === 'days' ? daysCards : weeksCards)
+            setFilteredCards(list === 'days' ? daysCards : weeksCards)
         }
         if(hasInputChanged){
-            if(listName === 'days'){
+            if(list === 'days'){
                 setFilteredCards(daysCards.filter(el => el.title.toLowerCase().indexOf(input.toLowerCase(),0) !== -1))
             } else {
                 setFilteredCards(weeksCards.filter(el => el.title.toLowerCase().indexOf(input.toLowerCase(),0) !== -1))
             }
         }
     });
+    const handleDrop = (id: number): void => {
+        if(list === 'days'){
+            setCards(prev => prev.filter(el => el.id !== id))
+        } else if(list === 'weeks'){
+            setWeeksCards(prev => prev.filter(el => el.id !== id))
+        }
+    };
     const moveCard = (dragIndex: number, hoverIndex: number): void => {
-        const dragCard = filteredCards[dragIndex]
+        const dragCard = filteredCards[dragIndex];
         setFilteredCards(
             update(filteredCards, {
                 $splice: [
@@ -113,4 +115,13 @@ const CardList = (props: Props) => {
     )
 };
 
-export default CardList;
+const mapStateToProps = (store: any) => ({
+    list: store.homeSider.list,
+    input: store.homeSider.input
+});
+
+const mapDispatchToProps = {
+    changeTemplatesListAction: changeTemplatesListAction,
+    changeInputAction: changeInputAction
+};
+export default connect(mapStateToProps, mapDispatchToProps)(CardList);

@@ -28,7 +28,7 @@ const SmallCard = (props: Props) => {
                         onClick={() => handleDrop(id)}
                     />
                 </div>
-                <div className="small-card__title">
+                <div className={classnames("small-card__title", isOpen ? "wrap" : "")}>
                     <span>{title}</span>
                 </div>
                 <div className="small-card__btn">
