@@ -1,14 +1,15 @@
 // @flow
-import {SHOW_LOADER, HIDE_LOADER, LoaderAction, LOG_IN} from "./actions";
+import {SHOW_LOADER, HIDE_LOADER, LoaderAction, LOG_IN, CHANGE_CURRENT_WEEK} from "./actions";
 
 const initialState = {
     loading: true,
-    logged: true
+    logged: true,
+    week: null
 };
 
 type initialType = typeof initialState;
 
-export const appReducer = (store: initialType = initialState, action: LoaderAction): initialType => {
+export const appReducer = (store: initialType = initialState, action): initialType => {
     switch (action.type) {
         case SHOW_LOADER:
             return {
@@ -24,6 +25,11 @@ export const appReducer = (store: initialType = initialState, action: LoaderActi
             return {
                 ...store,
                 logged: true
+            };
+        case CHANGE_CURRENT_WEEK:
+            return {
+                ...store,
+                week: action.payload
             };
         default:
             return store;

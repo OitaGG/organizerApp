@@ -1,7 +1,17 @@
 //@flow
-import React from 'react';
-import './Card.less'
-const Card = ({img, title, description, children, reverse}) => {
+import * as React from 'react';
+import './Card.less';
+
+const Props = {
+    img: String,
+    title: String,
+    description: String,
+    reverse: Boolean,
+    children: React.Node,
+};
+
+const Card = (props : Props) => {
+    const {img, title, description, children, reverse} = props;
     return (
         <div className="card">
             {!reverse ? <img className="card-img" src={img} alt="Card img"/> : null}

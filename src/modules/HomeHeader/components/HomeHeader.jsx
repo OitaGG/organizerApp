@@ -1,10 +1,18 @@
-import React from 'react';
+// @flow
+import * as React from "react";
 import {Avatar} from "antd";
 import {SettingOutlined, LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined} from "@ant-design/icons";
 import {NavLink} from "react-router-dom";
+import {DatePicker} from "../../../containers";
 import './Header.less'
 
-const Header = ({showSider, showSiderAct, user = {name: "Alex"}}) => {
+type Props = {
+    showSider: boolean,
+    showSiderAct: void,
+    user: any
+}
+const Header = (props: Props) => {
+    const {showSider, showSiderAct, user = {name: "Alex"}} = props
     const popupButton = showSider ?
         <MenuFoldOutlined className="header__side-bar-button-svg"/>
         : <MenuUnfoldOutlined className="header__side-bar-button-svg"/>;
@@ -14,6 +22,9 @@ const Header = ({showSider, showSiderAct, user = {name: "Alex"}}) => {
                 className="header__side-bar-button header_button"
                 onClick={showSiderAct}>
                 {popupButton}
+            </div>
+            <div className="header__date-picker">
+                <DatePicker/>
             </div>
             <div className="header_placeholder"></div>
             <div className="header__username">

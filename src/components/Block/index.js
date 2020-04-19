@@ -1,9 +1,14 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import classNames from 'classnames';
-import './Block.less'
+import './Block.less';
 
-const Block = ({children, className}) => {
+type Props = {
+    className: String,
+    children: React.Node
+}
+
+const Block = ({children, className} : Props) => {
     return (
         <div className={classNames('block', className)}>{children}</div>
     );

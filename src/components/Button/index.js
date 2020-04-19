@@ -1,9 +1,10 @@
 import React from 'react';
 import {Button as BaseButton} from "antd";
+import './Button.less';
 
 const Button = (props) => {
     return (
-       <BaseButton {...props} style={{textTransform: "uppercase"}}/>
+        <BaseButton {...props} className="our-btn" />
     );
 };
 
