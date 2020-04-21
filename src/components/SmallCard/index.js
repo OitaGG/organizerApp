@@ -4,7 +4,6 @@ import {CaretDownOutlined, EditOutlined, DeleteOutlined} from "@ant-design/icons
 import classnames from 'classnames';
 import './SmallCard.less';
 
-
 type Props = {
     title: string,
     description: string,

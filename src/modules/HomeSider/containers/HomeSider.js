@@ -4,14 +4,14 @@ import {connect} from "react-redux";
 import HomeSider from "../components/HomeSider";
 import {Component} from "react";
 import {siderShowAction} from "../../../store/homeHeader/actions";
-import {changeTemplatesListAction} from "../../../store/homeSider/actions";
+import {changeCurrentTemplatesListActionCreator} from "../../../store/templates/actions";
 import {changeInputAction} from "../../../store/homeSider/actions";
 
 type Props = {
     showSider: boolean,
     list: string,
     changeTemplatesListAction: void,
-    changeInputAction: void
+    changeInputAction: void,
 }
 
 type State = {
@@ -57,13 +57,13 @@ class HomeSiderContainer extends Component<Props, State>{
 
 const mapStateToProps = (store: any) => ({
     showSider: store.header.showSider,
-    list: store.homeSider.list
+    list: store.templates.currentTemplate
 });
 
 const mapDispatchToProps = {
     showSiderAction: siderShowAction,
-    changeTemplatesListAction: changeTemplatesListAction,
-    changeInputAction: changeInputAction
+    changeTemplatesListAction: changeCurrentTemplatesListActionCreator,
+    changeInputAction: changeInputAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeSiderContainer);

@@ -3,6 +3,7 @@ import * as React from "react";
 import {SmallCard} from "../../containers";
 import EmptyHolder from "../EmptyHolder";
 import './Card-List.less';
+import {useEffect} from "react";
 
 type Props = {
     cards: any,
@@ -23,7 +24,8 @@ const CardList = (props : Props) => {
             >{card.description}</SmallCard>
         )
     };
-    const EmptyList = (<EmptyHolder title="К сожалению, ничего не найдено" btnText="Создать шаблон"/>)
+
+    const EmptyList = (<EmptyHolder title="К сожалению, ничего не найдено" btnText="Создать шаблон"/>);
     return (
         <div className="card-list">
             {cards.length ? cards.map((card, i) => renderCard(card, i)) : EmptyList}

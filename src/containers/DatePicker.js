@@ -1,6 +1,6 @@
 import * as React from "react";
 import {DatePicker} from "../components";
-import {changeCurrentWeekAction} from "../store/app/actions";
+import {changeCurrentWeekAction} from "../store/timeManagment/actions";
 import {connect} from "react-redux";
 
 type Props = {

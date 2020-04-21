@@ -1,100 +1,47 @@
 import * as React from 'react';
-import {useState, useEffect, useRef} from 'react'
+import {useState, useEffect} from 'react'
 import {connect} from 'react-redux';
 import {CardList as BaseCardList} from "../components";
-import {changeInputAction, changeTemplatesListAction} from "../store/homeSider/actions";
 import update from 'immutability-helper';
-const items = [
-    {
-        id: 1,
-        title: "Просто заголовок",
-        description: "Тупо описание очень длинное, где много текста и прочего, чтобы вышло за рамки блаблабла и еще поговорим, мы же не спешим никуда"
-    },
-    {
-        id: 2,
-        title: "Что-то другое",
-        description: "И тут важное описание"
-    },
-    {
-        id: 3,
-        title: "Опять что-то другое",
-        description: "Описание еще важнее"
-    },
-    {
-        id: 4,
-        title: "А тут будет длинный заголовок, который ну пиздец как заебешься смотреть",
-        description: "Тупо описание"
-    },
-];
-
-const weeksItems = [
-    {
-        id: 4,
-        title: "Недельный заголовок",
-        description: "А тут текст"
-    },
-    {
-        id: 1,
-        title: "Другой заголовок",
-        description: "А тут текст"
-    }
-];
-
-// функции для отслеживания обновления пропсов
-function usePrevious(value: any): any {
-    const ref = useRef();
-    useEffect(() => {
-        ref.current = value;
-    });
-    return ref.current;
-}
-
-const hasPropsChanged = (val: any): boolean => {
-    const prev = usePrevious(val);
-    return prev !== val
-};
+import {fetchSingleCasesActionCreator, fetchWeeksTemplatesActionCreator} from "../store/templates/actions";
+import {fetchDeleteSingleCaseActionCreator, fetchDeleteWeekTemplateActionCreator} from "../store/templates/actions";
 
 type Props = {
     list: string,
-    input: string
+    input: string,
+    fetchPosts: void,
+    posts: any
 }
 
 
 const CardList = (props: Props) => {
-    const {list, input} = props;
-    const hasListChanged = hasPropsChanged(list);
-    const hasInputChanged = hasPropsChanged(input);
-    const [daysCards, setCards] = useState([]);
-    const [weeksCards, setWeeksCards] = useState([]);
+    const {list, input, fetchSingleCases, singleCases, fetchWeeks, weeks, fetchDeleteSingleCase, fetchDeleteWeek} = props;
     const [filteredCards, setFilteredCards] = useState([]);
     useEffect(() => {
-        // обращение к api
-        setWeeksCards(weeksItems);
-        setCards(items);
+        fetchSingleCases();
+        fetchWeeks();
     },[]);
     useEffect(() => {
-        setFilteredCards(weeksCards);
-    },[weeksCards]);
+        if(list === 'days') setFilteredCards(singleCases);
+    },[singleCases]);
     useEffect(() => {
-        setFilteredCards(daysCards);
-    },[daysCards]);
+        if(list === 'weeks') setFilteredCards(weeks);
+    },[weeks]);
     useEffect(() => {
-        if(hasListChanged){
-            setFilteredCards(list === 'days' ? daysCards : weeksCards)
+        if(list === 'days'){
+            setFilteredCards(singleCases.filter(el => el.title.toLowerCase().indexOf(input.toLowerCase(), 0) !== -1));
+        } else {
+            setFilteredCards(weeks.filter(el => el.title.toLowerCase().indexOf(input.toLowerCase(), 0) !== -1));
         }
-        if(hasInputChanged){
-            if(list === 'days'){
-                setFilteredCards(daysCards.filter(el => el.title.toLowerCase().indexOf(input.toLowerCase(),0) !== -1))
-            } else {
-                setFilteredCards(weeksCards.filter(el => el.title.toLowerCase().indexOf(input.toLowerCase(),0) !== -1))
-            }
-        }
-    });
+    }, [input]);
+    useEffect(() => {
+        setFilteredCards(list === 'days' ? singleCases : weeks);
+    }, [list]);
     const handleDrop = (id: number): void => {
         if(list === 'days'){
-            setCards(prev => prev.filter(el => el.id !== id))
+            fetchDeleteSingleCase(id);
         } else if(list === 'weeks'){
-            setWeeksCards(prev => prev.filter(el => el.id !== id))
+            fetchDeleteWeek(id);
         }
     };
     const moveCard = (dragIndex: number, hoverIndex: number): void => {
@@ -116,12 +63,16 @@ const CardList = (props: Props) => {
 };
 
 const mapStateToProps = (store: any) => ({
-    list: store.homeSider.list,
-    input: store.homeSider.input
+    list: store.templates.currentTemplate,
+    input: store.homeSider.input,
+    singleCases: store.templates.singleCases,
+    weeks: store.templates.weeks
 });
 
 const mapDispatchToProps = {
-    changeTemplatesListAction: changeTemplatesListAction,
-    changeInputAction: changeInputAction
+    fetchSingleCases: fetchSingleCasesActionCreator,
+    fetchWeeks: fetchWeeksTemplatesActionCreator,
+    fetchDeleteSingleCase: fetchDeleteSingleCaseActionCreator,
+    fetchDeleteWeek: fetchDeleteWeekTemplateActionCreator
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CardList);
