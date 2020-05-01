@@ -1,19 +1,26 @@
 // @flow
-import {combineReducers, createStore} from "redux";
+import {combineReducers, createStore, applyMiddleware, compose} from "redux";
+import thunk from 'redux-thunk';
 import {headerReducer} from "./homeHeader/reducer";
-import {appReducer} from "./app/reducer";
+import {timeManagerReducer} from "./timeManagment/reducer";
 import {homeSiderReducer} from "./homeSider/reducer";
+import {templatesReducer} from "./templates/reducer";
+import {newCardReducer} from "./newCard/reducer";
 
 const rootState = combineReducers({
     header: headerReducer,
-    app: appReducer,
-    homeSider: homeSiderReducer
+    timeManager: timeManagerReducer,
+    homeSider: homeSiderReducer,
+    templates: templatesReducer,
+    newCard: newCardReducer
 });
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const middleware = [thunk];
 export function configureStore() {
     const store = createStore(
         rootState,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        composeEnhancers(applyMiddleware(...middleware))
     );
     return store;
 }

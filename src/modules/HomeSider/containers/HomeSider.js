@@ -4,66 +4,42 @@ import {connect} from "react-redux";
 import HomeSider from "../components/HomeSider";
 import {Component} from "react";
 import {siderShowAction} from "../../../store/homeHeader/actions";
-import {changeTemplatesListAction} from "../../../store/homeSider/actions";
+import {changeCurrentTemplatesListActionCreator} from "../../../store/templates/actions";
 import {changeInputAction} from "../../../store/homeSider/actions";
+import {toggleNewCardActionCreator} from "../../../store/newCard/actions";
+import {useState} from "react";
 
 type Props = {
     showSider: boolean,
     list: string,
     changeTemplatesListAction: void,
-    changeInputAction: void
+    changeInputAction: void,
 }
 
-type State = {
-    visible: boolean
-}
-class HomeSiderContainer extends Component<Props, State>{
-    constructor(props){
-        super(props);
-        this.state = {
-            visible: false
-        };
-        this.changeVisibleStatus = () => {
-            this.setState(() => {
-                return {
-                    visible: false
-                }
-            })
-        };
-        this.openPopup = () => {
-            this.setState(() => {
-                return {
-                    visible: true
-                }
-            })
-        }
-
-    }
-    render(){
-        return(
+const HomeSiderContainer = ({showSider, list, changeTemplatesListAction, changeInputAction, toggleNewCard}) => {
+    const [visible, setVisible] = useState(false);
+    return(
             <HomeSider
-                showSider={this.props.showSider}
-                list={this.props.list}
-                changeTemplatesListAction={this.props.changeTemplatesListAction}
-                input={this.state.input}
-                visible={this.state.visible}
-                onChangeInputValue={this.props.changeInputAction}
-                changeVisibleStatus={this.changeVisibleStatus}
-                openPopup={this.openPopup}
+                showSider={showSider}
+                list={list}
+                changeTemplatesListAction={changeTemplatesListAction}
+                visible={visible}
+                onChangeInputValue={changeInputAction}
+                openPopup={toggleNewCard}
             />
         )
-    }
-}
+};
 
 const mapStateToProps = (store: any) => ({
     showSider: store.header.showSider,
-    list: store.homeSider.list
+    list: store.templates.currentTemplate
 });
 
 const mapDispatchToProps = {
     showSiderAction: siderShowAction,
-    changeTemplatesListAction: changeTemplatesListAction,
-    changeInputAction: changeInputAction
+    changeTemplatesListAction: changeCurrentTemplatesListActionCreator,
+    changeInputAction: changeInputAction,
+    toggleNewCard: toggleNewCardActionCreator
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeSiderContainer);

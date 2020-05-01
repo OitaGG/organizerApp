@@ -5,7 +5,6 @@ import {configureStore} from "./store/reducer";
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import './styles/index.less'
 import {Auth, Home, Start} from "./pages";
-import {Header} from "./modules";
 
 const store = configureStore();
 const App = () => {

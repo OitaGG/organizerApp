@@ -8,8 +8,7 @@ type Props = {
     style?: any
 }
 
-const ButtonLink = (props : Props) => {
-    const {to, children, style = {}} = props;
+const ButtonLink = ({to, children, style = {}}: Props) => {
     return (
         <NavLink className="button-link" to={to} style={style}>{children}</NavLink>
     );

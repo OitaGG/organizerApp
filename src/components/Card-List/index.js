@@ -9,8 +9,7 @@ type Props = {
     moveCard: void,
     handleDrop: void
 }
-const CardList = (props : Props) => {
-    const {cards, moveCard, handleDrop} = props;
+const CardList = ({cards, moveCard, handleDrop} : Props) => {
     const renderCard = (card, index) => {
         return (
             <SmallCard
@@ -23,7 +22,8 @@ const CardList = (props : Props) => {
             >{card.description}</SmallCard>
         )
     };
-    const EmptyList = (<EmptyHolder title="К сожалению, ничего не найдено" btnText="Создать шаблон"/>)
+
+    const EmptyList = (<EmptyHolder title="К сожалению, ничего не найдено" btnText="Создать шаблон"/>);
     return (
         <div className="card-list">
             {cards.length ? cards.map((card, i) => renderCard(card, i)) : EmptyList}

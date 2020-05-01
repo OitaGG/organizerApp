@@ -10,8 +10,7 @@ const Props = {
     children: React.Node,
 };
 
-const Card = (props : Props) => {
-    const {img, title, description, children, reverse} = props;
+const Card = ({img, title, description, children, reverse} : Props) => {
     return (
         <div className="card">
             {!reverse ? <img className="card-img" src={img} alt="Card img"/> : null}

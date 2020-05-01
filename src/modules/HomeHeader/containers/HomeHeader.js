@@ -3,24 +3,21 @@ import * as React from "react";
 import {connect} from "react-redux";
 import {siderShowAction} from "../../../store/homeHeader/actions";
 import Header from "../components/HomeHeader";
-import {Component} from "react";
 
 type Props = {
-    showSider: void,
+    showSider: boolean,
+    showSiderAct: void,
     user: any
 }
 
-class HeaderContainer extends Component<Props>{
-    render(){
-        return(
-            <Header
-                    user={this.props.user}
-                    showSider={this.props.showSider}
-                    showSiderAct={this.props.showSiderAction}
-            />
-        )
-    }
-}
+const HeaderContainer = ({user, showSider, showSiderAction}: Props) =>{
+    return(
+        <Header
+            user={user}
+            showSider={showSider}
+            showSiderAct={showSiderAction}
+        />)
+};
 
 const mapStateToProps = (store: any): any => ({
     showSider: store.header.showSider

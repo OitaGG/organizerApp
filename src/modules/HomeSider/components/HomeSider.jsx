@@ -21,7 +21,7 @@ type Props = {
 }
 
 const HomeSider = (props: Props) => {
-    const {input, list, showSider, changeTemplatesListAction, onChangeInputValue, changeVisibleStatus, visible, openPopup} = props;
+    const {list, showSider, changeTemplatesListAction, onChangeInputValue, openPopup} = props;
     const {Sider} = Layout;
     return(
         <DndProvider backend={Backend}>
@@ -51,10 +51,7 @@ const HomeSider = (props: Props) => {
                         className="sider__search dark"
                         placeholder="Поиск"
                         onChange={event => onChangeInputValue(event.target.value)}/>
-                    <NewCard
-                        visible={visible}
-                        onCreate={() => changeVisibleStatus()}
-                        onCancel={() => changeVisibleStatus()}/>
+                    <NewCard/>
                 </div>
                 <div className="sider__new-item-block">
                     <span
