@@ -5,12 +5,14 @@ import {headerReducer} from "./homeHeader/reducer";
 import {timeManagerReducer} from "./timeManagment/reducer";
 import {homeSiderReducer} from "./homeSider/reducer";
 import {templatesReducer} from "./templates/reducer";
+import {newCardReducer} from "./newCard/reducer";
 
 const rootState = combineReducers({
     header: headerReducer,
     timeManager: timeManagerReducer,
     homeSider: homeSiderReducer,
-    templates: templatesReducer
+    templates: templatesReducer,
+    newCard: newCardReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

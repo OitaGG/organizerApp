@@ -12,11 +12,14 @@ type Props = {
     opacity: number
 }
 
-const SmallCard = (props: Props) => {
-    const {title, children, opacity, handleDrop, id} = props;
+const SmallCard = ({title, children, opacity, handleDrop, id, rewriteCard, toggleNewCard}: Props) => {
     const [isOpen, toggleOpen] = useState(false);
     const toggleFlagOpen = (): void => {
         toggleOpen(prev => (!prev))
+    };
+    const rewriteCurrentCard = () => {
+        rewriteCard({title: title, description: children, id: id});
+        toggleNewCard();
     };
     return(
         <div className={classnames("small-card", isOpen ? 'open' : '')} style={{opacity: opacity}}>
@@ -31,7 +34,9 @@ const SmallCard = (props: Props) => {
                     <span>{title}</span>
                 </div>
                 <div className="small-card__btn">
-                    <EditOutlined style={{fontSize: "20px"}}/>
+                    <EditOutlined
+                        style={{fontSize: "20px"}}
+                        onClick={() => rewriteCurrentCard()}/>
                     <CaretDownOutlined style={{fontSize:"20px"}}
                                        onClick={() => toggleFlagOpen()}/>
                 </div>

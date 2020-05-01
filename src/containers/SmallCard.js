@@ -3,6 +3,9 @@ import * as React from "react";
 import { useImperativeHandle, useRef } from 'react'
 import { DragSource, DropTarget } from 'react-dnd'
 import {SmallCard as BaseSmallCard} from "../components";
+import {connect} from "react-redux";
+import {toggleNewCardActionCreator, rewriteCurrentCard} from "../store/newCard/actions";
+import {changeCurrentWeekAction} from "../store/timeManagment/actions";
 
 export const ItemTypes = {
     CARD: 'CARD',
@@ -19,7 +22,7 @@ type Props = {
 }
 
 const SmallCard = React.forwardRef(
-    ({ title, children, isDragging, connectDragSource, connectDropTarget, id, handleDrop}, ref) => {
+    ({ title, children, isDragging, connectDragSource, connectDropTarget, id, handleDrop, toggleNewCardActionCreator, rewriteCurrentCard}, ref) => {
         const elementRef = useRef(null);
         connectDragSource(elementRef);
         connectDropTarget(elementRef);
@@ -29,13 +32,22 @@ const SmallCard = React.forwardRef(
         }));
         return (
             <div ref={elementRef}>
-                <BaseSmallCard opacity={opacity} title={title} handleDrop={handleDrop} id={id}>{children}</BaseSmallCard>
+                <BaseSmallCard rewriteCard={rewriteCurrentCard} toggleNewCard={toggleNewCardActionCreator} opacity={opacity} title={title} handleDrop={handleDrop} id={id}>{children}</BaseSmallCard>
             </div>
         )
     },
 );
+const mapStateToProps = () => ({
 
-export default DropTarget(
+});
+
+const mapDispatchToProps = {
+    toggleNewCardActionCreator: toggleNewCardActionCreator,
+    rewriteCurrentCard: rewriteCurrentCard,
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(DropTarget(
     ItemTypes.CARD,
     {
         hover(props, monitor, component) {
@@ -83,4 +95,4 @@ export default DropTarget(
             isDragging: monitor.isDragging(),
         }),
     )(SmallCard),
-)  
+));

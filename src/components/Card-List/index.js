@@ -3,15 +3,13 @@ import * as React from "react";
 import {SmallCard} from "../../containers";
 import EmptyHolder from "../EmptyHolder";
 import './Card-List.less';
-import {useEffect} from "react";
 
 type Props = {
     cards: any,
     moveCard: void,
     handleDrop: void
 }
-const CardList = (props : Props) => {
-    const {cards, moveCard, handleDrop} = props;
+const CardList = ({cards, moveCard, handleDrop} : Props) => {
     const renderCard = (card, index) => {
         return (
             <SmallCard

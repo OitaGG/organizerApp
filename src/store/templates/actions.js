@@ -6,10 +6,9 @@ export const FETCH_WEEK_TEMPLATE ="FETCH_WEEK_TEMPLATE";
 export const SET_WEEK_TEMPLATE = "SET_WEEK_TEMPLATE";
 export const CHANGE_CURRENT_TEMPLATES_LIST = "CHANGE_CURRENT_TEMPLATES_LIST";
 export const DELETE_SINGLE_CASE = "DELETE_SINGLE_CASE";
-export const FETCH_DELETE_SINGLE_CASE = "FETCH_DELETE_SINGLE_CASE";
 export const DELETE_WEEK_TEMPLATE = "DELETE_WEEK_TEMPLATE";
 export const ADD_NEW_CASE_TEMPLATE = "ADD_NEW_CASE_TEMPLATE";
-
+export const PATCH_SINGLE_CASE = "PATCH_SINGLE_CASE";
 
 export const FETCH_SINGLE_CASES_TYPE = typeof FETCH_SINGLE_CASES;
 export const SET_SINGLE_CASES_TYPE = typeof SET_SINGLE_CASES;
@@ -55,7 +54,6 @@ export const setSingleCasesActionCreator = (cases: any): SetSingleCasesAction =>
 });
 
 export const fetchSingleCasesActionCreator = () => (dispatch): void => {
-    console.log('ok')
     todosTemplates.getAll()
                     .then(cases => dispatch(setSingleCasesActionCreator(cases)));
 };
@@ -82,7 +80,7 @@ export const deleteSingleCaseActionCreator = (id) => ({
 
 export const fetchDeleteSingleCaseActionCreator = (id) => (dispatch) => {
     todosTemplates.deleteSingleTemplate(id)
-                    .then(data => dispatch(deleteSingleCaseActionCreator(id)))
+                    .then(data => dispatch(fetchSingleCasesActionCreator()))
 };
 
 export const deleteWeekTemplateActionCreator = (id: number) => ({
@@ -96,6 +94,10 @@ export const fetchDeleteWeekTemplateActionCreator = (id) => (dispatch) => {
 };
 
 export const fetchNewCaseTemplateActionCreator = (data) => (dispatch) => {
-    console.log(data)
     todosTemplates.addNewSingleTemplate(data).then(res => dispatch(fetchSingleCasesActionCreator()))
+};
+
+export const patchSingleCase = ({id, title, description}) => (dispatch) => {
+    todosTemplates.updateSingleTemplate(id, title, description)
+                    .then(res => dispatch(fetchSingleCasesActionCreator()))
 };

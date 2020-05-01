@@ -1,3 +1,4 @@
+//@flow
 const baseUrl = "http://localhost:3000";
 
 export default {
@@ -15,5 +16,15 @@ export default {
             "Content-type": "application/json; charset=UTF-8"
         },
         body: JSON.stringify(data)
-    }).then(response => response.json())
+    }).then(response => response.json()),
+    updateSingleTemplate: (id, title, description) => fetch(`${baseUrl}/single-cases/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+            title: title,
+            description: description
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+        }).then(response => response.json())
 }

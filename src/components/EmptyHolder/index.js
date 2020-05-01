@@ -8,8 +8,7 @@ type Props = {
     btnText: string
 }
 
-const EmptyHolder = (props : Props) => {
-    const {title, btnText} = props;
+const EmptyHolder = ({title, btnText} : Props) => {
     return (
         <Empty
             className="empty-holder"

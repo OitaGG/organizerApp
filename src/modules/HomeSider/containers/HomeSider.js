@@ -6,6 +6,8 @@ import {Component} from "react";
 import {siderShowAction} from "../../../store/homeHeader/actions";
 import {changeCurrentTemplatesListActionCreator} from "../../../store/templates/actions";
 import {changeInputAction} from "../../../store/homeSider/actions";
+import {toggleNewCardActionCreator} from "../../../store/newCard/actions";
+import {useState} from "react";
 
 type Props = {
     showSider: boolean,
@@ -14,46 +16,19 @@ type Props = {
     changeInputAction: void,
 }
 
-type State = {
-    visible: boolean
-}
-class HomeSiderContainer extends Component<Props, State>{
-    constructor(props){
-        super(props);
-        this.state = {
-            visible: false
-        };
-        this.changeVisibleStatus = () => {
-            this.setState(() => {
-                return {
-                    visible: false
-                }
-            })
-        };
-        this.openPopup = () => {
-            this.setState(() => {
-                return {
-                    visible: true
-                }
-            })
-        }
-
-    }
-    render(){
-        return(
+const HomeSiderContainer = ({showSider, list, changeTemplatesListAction, changeInputAction, toggleNewCard}) => {
+    const [visible, setVisible] = useState(false);
+    return(
             <HomeSider
-                showSider={this.props.showSider}
-                list={this.props.list}
-                changeTemplatesListAction={this.props.changeTemplatesListAction}
-                input={this.state.input}
-                visible={this.state.visible}
-                onChangeInputValue={this.props.changeInputAction}
-                changeVisibleStatus={this.changeVisibleStatus}
-                openPopup={this.openPopup}
+                showSider={showSider}
+                list={list}
+                changeTemplatesListAction={changeTemplatesListAction}
+                visible={visible}
+                onChangeInputValue={changeInputAction}
+                openPopup={toggleNewCard}
             />
         )
-    }
-}
+};
 
 const mapStateToProps = (store: any) => ({
     showSider: store.header.showSider,
@@ -64,6 +39,7 @@ const mapDispatchToProps = {
     showSiderAction: siderShowAction,
     changeTemplatesListAction: changeCurrentTemplatesListActionCreator,
     changeInputAction: changeInputAction,
+    toggleNewCard: toggleNewCardActionCreator
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeSiderContainer);
